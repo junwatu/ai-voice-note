@@ -1,0 +1,19 @@
+{
+  "name": "voice-note-ai",
+  "version": "1.0.0",
+  "description": "voice note using openai, node.js, and griddb.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/junwatu/voice-note-ai.git"
+  },
+  "author": "Equan P.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/junwatu/voice-note-ai/issues"
+  },
+  "homepage": "https://github.com/junwatu/voice-note-ai#readme"
+}
