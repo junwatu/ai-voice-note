@@ -7,3 +7,12 @@ This project leverages[Node.js](https://nodejs.org/en/download/) for its backend
 ## How it Works?
 
 ![project architecture](images/project-architecture.png)
+
+The architecture of the AI Voice Note application can be simplified into a few steps:
+1. Users record audio through a web interface, which then sends the audio data to a Node.js server. 
+2. Node.js processes this data and saving the recordings as MP3 files in persistent storage.
+3. Simultaneously, Node.js interacts with OpenAI's API to transcribe the audio to text and categorize the content. 
+4. The transcribed and categorized data is then stored in GridDB, a scalable NoSQL database. 
+
+The process flow is a bidirectional interaction between Node.js and both the database and the AI service, this make Node.js acts as the central hub for data management and processing within the application.
+
