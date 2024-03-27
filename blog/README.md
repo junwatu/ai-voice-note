@@ -1,5 +1,4 @@
-# Building Voice Note AI
+# Building AI Voice Note
 
 ![cover](images/voice-note-ai.webp)
-
 
