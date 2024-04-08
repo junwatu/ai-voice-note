@@ -19,3 +19,15 @@ The architecture of the AI Voice Note application can be simplified into a few s
 4. The transcribed and categorized data is then stored in GridDB, a scalable NoSQL database.
 
 The process flow is a bidirectional interaction between Node.js and both the database and the AI service, this make Node.js acts as the central hub for data management and processing within the application.
+
+## Setup & Installation
+
+## Create Node.js Server
+
+## Connect to OpenAI
+
+## Save Data to GridDB
+
+## Voice Note History
+
+## Further Enhancements
