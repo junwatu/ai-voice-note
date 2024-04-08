@@ -1,13 +1,13 @@
-import './App.css'
+import Home from './Home';
 
 function App() {
   return (
-    <>
-      <div>
-         <h1>AI Voice Note</h1>
-      </div>
-    </>
-  )
+    <html>
+      <body>
+          <Home/>
+      </body>
+    </html>
+  );
 }
 
 export default App
