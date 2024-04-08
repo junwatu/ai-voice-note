@@ -26,6 +26,8 @@ The process flow is a bidirectional interaction between Node.js and both the dat
 
 ## Connect to OpenAI
 
+## Speech to Text
+
 ## Save Data to GridDB
 
 ## Voice Note History
