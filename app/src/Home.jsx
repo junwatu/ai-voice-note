@@ -44,7 +44,6 @@ export default function Home() {
 							showVisualizer={true}
 						/>
 					</div>
-					<br />
 				</div>
 			</div>
 		</div>
