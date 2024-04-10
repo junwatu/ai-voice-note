@@ -1,9 +1,9 @@
 const griddb = require('griddb-node-api');
-
-const containerName = 'SensorDataStorage';
+const containerName = 'AIVoiceNote';
 
 const initStore = async () => {
 	const factory = griddb.StoreFactory.getInstance();
+	// eslint-disable-next-line no-useless-catch
 	try {
 		// Connect to GridDB Cluster
 		const store = await factory.getStore({
@@ -26,7 +26,9 @@ function initContainer() {
 		name: containerName,
 		columnInfoList: [
 			['id', griddb.Type.INTEGER],
-			['data', griddb.Type.STRING],
+			['filename', griddb.Type.STRING],
+			['text', griddb.Type.STRING],
+			['category', griddb.Type.STRING]
 		],
 		type: griddb.ContainerType.COLLECTION,
 		rowKey: true,
@@ -185,7 +187,9 @@ async function queryAll(conInfo, store) {
 			const row = rowset.next();
 			const rowData = {
 				id: `${row[0]}`,
-				data: `${row[1]}`,
+				filename: `${row[1]}`,
+				text: `${row[2]}`,
+				category: `${row[3]}`,
 			};
 			results.push(rowData);
 		}
@@ -209,7 +213,7 @@ async function queryByID(id, conInfo, store) {
 }
 
 // Delete container
-async function dropContainer(store, containerName) {
+async function dropContainer(store, containerName, conInfo) {
 	store
 		.dropContainer(containerName)
 		.then(() => {

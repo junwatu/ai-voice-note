@@ -6,6 +6,7 @@ import OpenAI from "openai";
 import express from 'express';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { saveData, getAllData, getDatabyID, info } from './griddbservices.js';
 
 const app = express();
 const port = 3000;
