@@ -17,6 +17,7 @@ const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY
 });
 
+
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		cb(null, 'uploads/');
@@ -45,7 +46,19 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 
 			console.log(transcription.text);
 
-			// Send back the transcription as part of the response
+			// eslint-disable-next-line no-unused-vars
+			const speechData = {
+				filename: filePath,
+				text: transcription.text
+			}
+
+			/**
+			 * Data fieldss
+			 * filename:
+			 * text:
+			 * category:
+			 */
+
 			res.json({ message: 'Successfully uploaded file', transcription: transcription.text });
 		} catch (error) {
 			console.error('Error during transcription:', error);
