@@ -60,6 +60,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 			 * category:
 			 */
 
+			// Process data to GridDB database
+
 			res.json({ message: 'Successfully uploaded file', transcription: transcription.text });
 		} catch (error) {
 			console.error('Error during transcription:', error);
@@ -69,12 +71,6 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 		res.status(400).json({ message: 'No file uploaded' });
 	}
 });
-
-/**
-app.post('/upload', upload.single('file'), (req, res) => {
-	res.json({ message: 'Successfully uploaded file' });
-});
-*/
 
 app.listen(port, () => {
 	console.log(`Server listening at http://localhost:${port}`);
