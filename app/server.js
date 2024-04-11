@@ -49,7 +49,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 			// eslint-disable-next-line no-unused-vars
 			const speechData = {
 				filename: filePath,
-				speechText: transcription.text,
+				text: transcription.text,
 				category: "voice note"
 			}
 
@@ -61,8 +61,14 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 			 */
 
 			// Process data to GridDB database
-			// TODO
-			// saveData({ })
+			// Save the transcription data to GridDB
+			//const saveStatus = await saveData(speechData);
+
+			res.json({
+				message: 'Successfully uploaded file and saved data',
+				transcription: transcription.text,
+				//saveStatus: saveStatus
+			});
 
 			res.json({ message: 'Successfully uploaded file', transcription: transcription.text });
 		} catch (error) {
