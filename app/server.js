@@ -61,6 +61,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 			 */
 
 			// Process data to GridDB database
+			// TODO
+			//
 
 			res.json({ message: 'Successfully uploaded file', transcription: transcription.text });
 		} catch (error) {
