@@ -27,7 +27,7 @@ function initContainer() {
 		columnInfoList: [
 			['id', griddb.Type.INTEGER],
 			['filename', griddb.Type.STRING],
-			['text', griddb.Type.STRING],
+			['speechText', griddb.Type.STRING],
 			['category', griddb.Type.STRING]
 		],
 		type: griddb.ContainerType.COLLECTION,

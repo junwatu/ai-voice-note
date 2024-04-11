@@ -3,10 +3,13 @@ import { generateRandomID } from './libs/rangen.js';
 
 const { collectionDb, store, conInfo } = await GridDB.initGridDbTS();
 
-export async function saveData({ sensorData }) {
+export async function saveData({ voiceNoteData }) {
 	const id = generateRandomID();
-	const data = String(sensorData);
-	const packetInfo = [parseInt(id), data];
+	const filename = String(voiceNoteData.filename);
+	const speechText = String(voiceNoteData.text);
+	const category = String(voiceNoteData.category);
+
+	const packetInfo = [parseInt(id), filename, speechText, category];
 	const saveStatus = await GridDB.insert(packetInfo, collectionDb);
 	return saveStatus;
 }

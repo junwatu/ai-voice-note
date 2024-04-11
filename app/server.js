@@ -49,7 +49,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 			// eslint-disable-next-line no-unused-vars
 			const speechData = {
 				filename: filePath,
-				text: transcription.text
+				speechText: transcription.text,
+				category: "voice note"
 			}
 
 			/**
