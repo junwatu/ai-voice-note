@@ -41,13 +41,26 @@ Install dependencies using `npm`
 npm install
 ```
 
-Run the project
+Create `.env` file or copy from `.env.example` and set these environment variable keys:
+
+| Environment Variable Key | Description                                         | Value                 |
+|--------------------------|-----------------------------------------------------|-------------------------------|
+| `OPENAI_API_KEY`         | Key for authenticating API requests to OpenAI.      | (Your actual OpenAI API key)  |
+| `VITE_API_URL`           | The base URL of the Vite application's backend API. | http://localhost:3000         |
+
+Feel free to change the default `VITE_API_URL`. However, if you change it, you **should** build the client application with this command:
+
+```shell
+npm run build
+```
+
+To run the project, use this command:
 
 ```shell
 npm run start
 ```
 
-By default the port running on 3000. Use this URL to open the AI Voice Note app:
+By default the port running on 3000. It's recommended to use the Google Chrome browser to open the **AI Voice Note** app:
 
 ```shell
 http://localhost:3000
@@ -115,7 +128,7 @@ When a recorded audio file is uploaded, generally these will happens:
 5. The server then sends a JSON response back to the client, indicating success and including the transcription text.
 6. If an error occurs during transcription, it logs the error and sends back a 500 status with an error message.
 
-7. If no audio file is uploaded, it responds with a 400 status, indicating a bad request.
+7. If no audio file is uploaded, it responds with a `400` status, indicating a bad request.
 
 ## Speech to Text Using OpenAI
 
@@ -135,7 +148,7 @@ const transcription = await openai.audio.transcriptions.create({
 });
 ```
 
-The transcriptions API takes as input the audio file you want to transcribe and the desired output file format for the transcription of the audio. By default, the response type will be json with the raw text included.
+The transcriptions API takes as input the audio file from the storage and will response for the transcription of the audio. By default, the response type will be JSON with the raw text included.
 
 
 ## Save Data to GridDB
