@@ -2,11 +2,15 @@ import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 
 export default function Home() {
 
-	const recorderControls = useAudioRecorder(
-		{
-			noiseSuppression: true,
-			echoCancellation: true,
-		},
+	// Example in a JavaScript or TypeScript file
+    const apiUrl = import.meta.env.VITE_API_URL;
+    
+	console.log(apiUrl);
+
+	const recorderControls = useAudioRecorder({
+		noiseSuppression: true,
+		echoCancellation: true,
+	},
 		(err) => console.table(err) // onNotAllowedOrFound
 	);
 	const addAudioElement = (blob) => {
@@ -19,7 +23,7 @@ export default function Home() {
 		const formData = new FormData();
 		formData.append("file", blob, "audio.webm");
 
-		fetch('http://localhost:3000/upload', {
+		fetch(`${apiUrl}/upload`, {
 			method: 'POST',
 			body: formData,
 		})
