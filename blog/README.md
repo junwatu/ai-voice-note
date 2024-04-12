@@ -22,6 +22,39 @@ The process flow is a bidirectional interaction between Node.js and both the dat
 
 ## Setup & Installation
 
+Clone the project code from [this repository](https://github.com/junwatu/ai-voice-note),
+
+```shell
+git clone git@github.com:junwatu/ai-voice-note.git
+```
+
+Change directory to `app` dir
+
+```shell
+cd ai-voice-note
+cd app
+```
+
+Install dependencies using `npm`
+
+```shell
+npm install
+```
+
+Run the project
+
+```shell
+npm run start
+```
+
+By default the port running on 3000. Use this URL to open the AI Voice Note app
+
+```shell
+http://localhost:3000
+```
+
+![audio-note-app-screenshot](images/Screenshot%202024-04-12%20at%2010.46.45.png)
+
 ## Create Node.js Server
 
 ## Connect to OpenAI
