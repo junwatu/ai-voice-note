@@ -46,7 +46,6 @@ Run the project
 ```shell
 npm run start
 ```
-
 By default the port running on 3000. Use this URL to open the AI Voice Note app
 
 ```shell
