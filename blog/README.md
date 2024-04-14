@@ -127,7 +127,7 @@ export default function Home() {
 }
 ```
 
-The `<AudioRecorder>` is a React component that will record audio using Web APIs. On recording complete, the audio blob will be processed and uploaded to Node.js `/upload` server endpoint.
+The `<AudioRecorder>` is an out-of-the-box component that takes `onRecordingComplete` method as a prop and calls it when you save the recording. This React component will record audio using Web APIs. On recording complete, the audio blob will be processed and then uploaded to Node.js `/upload` server endpoint.
 
 ## Create Node.js Server
 
@@ -207,6 +207,20 @@ const transcription = await openai.audio.transcriptions.create({
 The transcriptions API takes as input the audio file from the storage and will response for the transcription of the audio. By default, the response type will be JSON with the raw text included.
 
 ## Save Data to GridDB
+
+To save the transcribed data from OpenAI, we will use GridDB as the database. In Node.js server these data will be saved in the database:
+
+```javascript
+const speechData = {
+    filename: filePath,
+    text: transcription.text,
+    category: "voice note"
+}
+
+const saveStatus = await saveData(speechData);
+```
+
+
 
 ## Voice Note History
 
