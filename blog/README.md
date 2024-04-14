@@ -46,7 +46,7 @@ Create `.env` file or copy from `.env.example` and set these environment variabl
 | Environment Variable Key | Description                                         | Value                 |
 |--------------------------|-----------------------------------------------------|-------------------------------|
 | `OPENAI_API_KEY`         | Key for authenticating API requests to OpenAI.      | (Your actual OpenAI API key)  |
-| `VITE_API_URL`           | The base URL of the Vite application's backend API. | http://localhost:3000         |
+| `VITE_API_URL`           | The base URL of the Vite application's backend API. | <http://localhost:3000>         |
 
 Feel free to change the default `VITE_API_URL`. However, if you change it, you **should** build the client application with this command:
 
@@ -70,7 +70,64 @@ http://localhost:3000
 
 ## Record Audio
 
+The [React Audio Recorder](https://github.com/samhirtarif/react-audio-recorder) is an audio recording helper for React. It provides a component and a hook to help with audio recording.
 
+```javascript
+import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
+
+export default function Home() {
+
+ const apiUrl = import.meta.env.VITE_API_URL;
+ 
+ const recorderControls = useAudioRecorder({
+  noiseSuppression: true,
+  echoCancellation: true,
+ },
+  (err) => console.table(err) // onNotAllowedOrFound
+ );
+ const addAudioElement = (blob) => {
+  const url = URL.createObjectURL(blob);
+  const audio = document.createElement('audio');
+  audio.src = url;
+  audio.controls = true;
+  document.body.appendChild(audio);
+
+  const formData = new FormData();
+  formData.append("file", blob, "audio.webm");
+
+  fetch(`${apiUrl}/upload`, {
+   method: 'POST',
+   body: formData,
+  })
+   .then(response => response.json())
+   .then(data => {
+    console.log('Success:', data);
+   })
+   .catch((error) => {
+    console.error('Error:', error);
+   });
+ };
+
+ return (
+  <div className="hero min-h-screen bg-base-200">
+   <div className="hero-content text-center">
+    <div className="max-w-md">
+     <h1 className="text-5xl font-bold">Audio Note</h1>
+     <div className='flex justify-center items-center w-full my-32'>
+      <AudioRecorder
+       onRecordingComplete={(blob) => addAudioElement(blob)}
+       recorderControls={recorderControls}
+       showVisualizer={true}
+      />
+     </div>
+    </div>
+   </div>
+  </div>
+ );
+}
+```
+
+The `<AudioRecorder>` is a React component that will record audio using Web APIs. On recording complete, the audio blob will be processed and uploaded to Node.js `/upload` server endpoint.
 
 ## Create Node.js Server
 
@@ -81,12 +138,11 @@ The Node.js server sets up an Express server route that handles **POST** request
 ```javascript
 app.post('/upload', upload.single('file'), async (req, res) => {
  if (req.file) {
-  // The path to the uploaded audio file
   const filePath = join(__dirname, 'uploads', req.file.filename);
 
   try {
-   // Perform speech-to-text on the uploaded file
-   const transcription = await openai.audio.transcriptions.create({
+   const transcription = await openai.audio.transcriptions.create
+   ({
     file: fs.createReadStream(filePath),
     model: "whisper-1",
    });
@@ -149,7 +205,6 @@ const transcription = await openai.audio.transcriptions.create({
 ```
 
 The transcriptions API takes as input the audio file from the storage and will response for the transcription of the audio. By default, the response type will be JSON with the raw text included.
-
 
 ## Save Data to GridDB
 
