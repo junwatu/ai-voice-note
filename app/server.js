@@ -69,8 +69,6 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 				transcription: transcription.text,
 				//saveStatus: saveStatus
 			});
-
-			res.json({ message: 'Successfully uploaded file', transcription: transcription.text });
 		} catch (error) {
 			console.error('Error during transcription:', error);
 			res.status(500).json({ message: 'Error during transcription', error: error.message });
