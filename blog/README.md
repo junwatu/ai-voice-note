@@ -12,13 +12,13 @@ The architecture of the AI Voice Note application can be simplified into a few s
 
 1. Users record audio through a web interface, which then sends the audio data to a Node.js server.
 
-2. Node.js processes this data and saving the recordings as MP3 files in persistent storage.
+2. Node.js processes this data and saves the recordings as MP3 files in persistent storage.
 
 3. Simultaneously, Node.js interacts with OpenAI's API to transcribe the audio to text and categorize the content.
 
 4. The transcribed and categorized data is then stored in GridDB, a scalable NoSQL database.
 
-The process flow is a bidirectional interaction between Node.js and both the database and the AI service, this make Node.js acts as the central hub for data management and processing within the application.
+The process flow is a bidirectional interaction between Node.js and both the database and the AI service, this makes Node.js act as the central hub for data management and processing within the application.
 
 ## Setup & Installation
 
@@ -41,7 +41,7 @@ Install dependencies using `npm`
 npm install
 ```
 
-Create `.env` file or copy from `.env.example` and set these environment variable keys:
+Create a `.env` file or copy from `.env.example` and set these environment variable keys:
 
 | Environment Variable Key | Description                                         | Value                 |
 |--------------------------|-----------------------------------------------------|-------------------------------|
@@ -127,11 +127,11 @@ export default function Home() {
 }
 ```
 
-The `<AudioRecorder>` is an out-of-the-box component that takes `onRecordingComplete` method as a prop and calls it when you save the recording. This React component will record audio using Web APIs. On recording complete, the audio blob will be processed and then uploaded to Node.js `/upload` server endpoint.
+The `<AudioRecorder>` is an out-of-the-box component that takes the `onRecordingComplete` method as a prop and calls it when you save the recording. This React component will record audio using Web APIs. On recording complete, the audio blob will be processed and then uploaded to Node.js `/upload` server endpoint.
 
 ## Create Node.js Server
 
-Node.js server will save the recordings as `.webm` files in persistent storage and then will sent the audio file to OpenAI for speech to text recognition.
+Node.js server will save the recordings as `.webm` files in persistent storage and then will send the audio file to OpenAI for speech-to-text recognition.
 
 The Node.js server sets up an Express server route that handles **POST** requests at the `/upload` endpoint. It uses `multer` middleware to process a single file upload from the request.
 
@@ -175,12 +175,12 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 });
 ```
 
-When a recorded audio file is uploaded, generally these will happens:
+When a recorded audio file is uploaded, generally these will happen:
 
-1. The server generates a path for the file based on the current directory and a `uploads` subdirectory.
+1. The server generates a path for the file based on the current directory and an `uploads` subdirectory.
 2. It attempts to transcribe the audio file to text using OpenAI's audio transcription API, using the [`whisper-1`](https://platform.openai.com/docs/models/whisper) model.
 3. If successful, it logs the transcription to the console and creates an object with the file path, transcribed text, and a hard-coded category of **voice note**.
-4. This data then need to be saved to a GridDB database.
+4. This data then needs to be saved to a GridDB database.
 5. The server then sends a JSON response back to the client, indicating success and including the transcription text.
 6. If an error occurs during transcription, it logs the error and sends back a 500 status with an error message.
 
@@ -188,10 +188,10 @@ When a recorded audio file is uploaded, generally these will happens:
 
 ## Speech to Text Using OpenAI
 
-OpenAI have capabilities to turn audio into text or [speech to text](https://platform.openai.com/docs/guides/speech-to-text) feature. The Audio API provides two speech to text endpoints, `transcriptions` and `translations`, based on the state-of-the-art open source large-v2 **Whisper** model. They can be used to:
+OpenAI has capabilities to turn audio into text or [speech to text](https://platform.openai.com/docs/guides/speech-to-text) feature. The Audio API provides two speech-to-text endpoints, `transcriptions` and `translations`, based on the state-of-the-art open-source large-v2 **Whisper** model. They can be used to:
 
 - Transcribe audio into whatever language the audio is in.
-- Translate and transcribe the audio into english.
+- Translate and transcribe the audio into English.
 
 File uploads are currently limited to 25 MB and the following input file types are supported: `mp3`, `mp4`, `mpeg`, `mpga`, `m4a`, `wav`, and `webm`.
 
@@ -204,11 +204,13 @@ const transcription = await openai.audio.transcriptions.create({
 });
 ```
 
-The transcriptions API takes as input the audio file from the storage and will response for the transcription of the audio. By default, the response type will be JSON with the raw text included.
+The transcriptions API takes as input the audio file from the storage and will respond to the transcription of the audio. By default, the response type will be JSON with the raw text included.
 
 ## Save Data to GridDB
 
-To save the transcribed data from OpenAI, we will use GridDB as the database. In Node.js server these data will be saved in the database:
+[GridDB](https://griddb.net/en/) is an open-source time series database optimized for IoT and Big Data. However, it can also be used for general web applications.
+
+To save the transcribed data from OpenAI, we will use GridDB as the database. In the Node.js server these data will be saved in the database:
 
 ```javascript
 const speechData = {
@@ -220,8 +222,5 @@ const speechData = {
 const saveStatus = await saveData(speechData);
 ```
 
-
-
-## Voice Note History
 
 ## Further Enhancements
