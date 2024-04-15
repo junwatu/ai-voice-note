@@ -46,7 +46,7 @@ Create a `.env` file or copy from `.env.example` and set these environment varia
 | Environment Variable Key | Description                                         | Value                 |
 |--------------------------|-----------------------------------------------------|-------------------------------|
 | `OPENAI_API_KEY`         | Key for authenticating API requests to OpenAI.      | (Your actual OpenAI API key)  |
-| `VITE_API_URL`           | The base URL of the Vite application's backend API. | <http://localhost:3000>         |
+| `VITE_API_URL`           | The base URL of the Vite application's backend API. | `http://localhost:3000`         |
 
 Feel free to change the default `VITE_API_URL`. However, if you change it, you **should** build the client application with this command:
 
