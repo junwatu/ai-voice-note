@@ -263,7 +263,7 @@ export async function saveData({ filename, text, category }) {
 }
 ```
 
-The `initContainer` function will initialize the GridDB container with the audio/speech data. You can see this function in the `libs/griddb.cjs` file.
+The `initContainer` function will initialize the GridDB container with the audio or speech data. You can see this function in the `libs/griddb.cjs` file.
 
 ```javascript
 function initContainer() {
