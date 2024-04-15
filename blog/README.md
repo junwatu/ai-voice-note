@@ -68,13 +68,13 @@ http://localhost:3000
 
 ![audio-note-app-screenshot](images/Screenshot%202024-04-12%20at%2010.46.45.png)
 
-This web application needs a microphone access permission. To record audio from the default microphone, you should allow it.
+This web application needs microphone access permission. To record audio from the default microphone, you should allow it.
 
 ![mic access permission](images/mic-access.png)
 
 ## Audio Recording
 
-The [React Audio Recorder](https://github.com/samhirtarif/react-audio-recorder) is an audio recording helper for React. It provides a component and a hook to help with audio recording.
+The [React Audio Recorder](https://github.com/samhirtarif/react-audio-recorder) is an audio recording helper for React. It offers a component and a hook to aid in audio recording, which can be done on the client side via Web APIs such as [Media Recorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder).
 
 ```javascript
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
@@ -198,7 +198,7 @@ The `server.js` file provides routes to save and get the audio data. Below is a 
 
 | Method | Path         | Description                                                       |
 |--------|--------------|-------------------------------------------------------------------|
-| POST   | `/upload`    | Uploads a file, transcribes it, and optionally saves the data.    |
+| POST   | `/upload`    | Uploads a file, transcribes it and optionally saves the data.    |
 | POST   | `/save-data` | Saves provided data (filename, text, category) to the database.   |
 | GET    | `/data/:id`  | Retrieves data for a specific ID from the database.               |
 | GET    | `/all-data`  | Retrieves all data entries from the database.                     |
@@ -228,7 +228,7 @@ The transcriptions API takes as input the audio file from the storage and will r
 
 ## Save Data to GridDB
 
-[GridDB](https://griddb.net/en/) is an open-source time series database optimized for IoT and Big Data. However, it can also be used for general web applications. To save the transcribed data from OpenAI, we will use GridDB as the database. In the Node.js server these data will be saved in the database:
+[GridDB](https://griddb.net/en/) is an open-source time series database optimized for IoT and Big Data. However, it can also be used for general web applications. To save the transcribed data from OpenAI, we will use GridDB as the database. In the Node.js server, these data will be saved in the database:
 
 ```javascript
 const speechData = {
@@ -240,7 +240,7 @@ const speechData = {
 const saveStatus = await saveData(speechData);
 ```
 
-There are three fields that will be saved to the database. One important note is this project will not save the audio file in the database but it will save the audio file reference (file path).
+Three fields will be saved to the database. One important note is this project will not save the audio file in the database but it will save the audio file reference (file path).
 
 | Key       | Description                                           | Example Value                     |
 |-----------|-------------------------------------------------------|-----------------------------------|
