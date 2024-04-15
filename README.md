@@ -1,1 +1,1 @@
-# Voice Note AI
+# AI Voice Note
