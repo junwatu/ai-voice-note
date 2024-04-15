@@ -228,7 +228,7 @@ There are three fields that will be saved to the database. One important note is
 | `text`    | The transcribed text obtained from the audio file.    | "Transcribed speech from the audio." |
 | `category`| A label or category assigned to the audio note.       | "voice note"                      |
 
-The `saveData` function will save the audio data into the GridDB database:
+The `saveData` function will save the audio data into the GridDB database. In the `griddbservice.js` file you can find the `saveData` code:
 
 ```javascript
 export async function saveData({ filename, text, category }) {
@@ -240,6 +240,26 @@ export async function saveData({ filename, text, category }) {
  const packetInfo = [parseInt(id), sfilename, speechText, scategory];
  const saveStatus = await GridDB.insert(packetInfo, collectionDb);
  return saveStatus;
+}
+```
+
+The `initContainer` function will initialize the GridDB container with the audio/speech data. You can see this function in the `libs/griddb.cjs` file.
+
+```javascript
+function initContainer() {
+ const conInfo = new griddb.ContainerInfo({
+  name: containerName,
+  columnInfoList: [
+   ['id', griddb.Type.INTEGER],
+   ['filename', griddb.Type.STRING],
+   ['speechText', griddb.Type.STRING],
+   ['category', griddb.Type.STRING]
+  ],
+  type: griddb.ContainerType.COLLECTION,
+  rowKey: true,
+ });
+
+ return conInfo;
 }
 ```
 
