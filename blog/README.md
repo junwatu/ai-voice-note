@@ -72,7 +72,7 @@ This web application needs a microphone access permission. To record audio from 
 
 ![mic access permission](images/mic-access.png)
 
-## Record Audio
+## Audio Recording
 
 The [React Audio Recorder](https://github.com/samhirtarif/react-audio-recorder) is an audio recording helper for React. It provides a component and a hook to help with audio recording.
 
