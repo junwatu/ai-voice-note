@@ -189,7 +189,6 @@ When a recorded audio file is uploaded, generally these will happen:
 4. This data then needs to be saved to a GridDB database.
 5. The server then sends a JSON response back to the client, indicating success and including the transcription text.
 6. If an error occurs during transcription, it logs the error and sends back a 500 status with an error message.
-
 7. If no audio file is uploaded, it responds with a `400` status, indicating a bad request.
 
 ### Routes
