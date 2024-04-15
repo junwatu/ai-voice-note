@@ -127,6 +127,8 @@ export default function Home() {
 }
 ```
 
+![audio recorder component](images/audio-recorder.png)
+
 The `<AudioRecorder>` is an out-of-the-box component that takes the `onRecordingComplete` method as a prop and calls it when you save the recording. This React component will record audio using Web APIs. On recording complete, the audio blob will be processed and then uploaded to Node.js `/upload` server endpoint.
 
 ## Create Node.js Server
