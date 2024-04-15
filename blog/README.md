@@ -284,3 +284,5 @@ function initContainer() {
 ```
 
 ## Further Enhancements
+
+This web application does not support the selection of multiple devices. To improve the functionality, you can add a feature that allows users to select available microphones.
