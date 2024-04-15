@@ -192,6 +192,20 @@ When a recorded audio file is uploaded, generally these will happen:
 
 7. If no audio file is uploaded, it responds with a `400` status, indicating a bad request.
 
+### Routes
+
+The `server.js` file provides routes to save and get the audio data. Below is a summarized table of the routes defined in the Node.js server, including their methods, paths, and descriptions:
+
+| Method | Path         | Description                                                       |
+|--------|--------------|-------------------------------------------------------------------|
+| POST   | `/upload`    | Uploads a file, transcribes it, and optionally saves the data.    |
+| POST   | `/save-data` | Saves provided data (filename, text, category) to the database.   |
+| GET    | `/data/:id`  | Retrieves data for a specific ID from the database.               |
+| GET    | `/all-data`  | Retrieves all data entries from the database.                     |
+| GET    | `/info`      | Provides information about the GridDB containers.                 |
+
+These endpoints collectively enable the functionality for uploading and managing audio transcriptions within a Node.js application using Express, multer for file handling, and GridDB for data storage.
+
 ## Speech to Text Using OpenAI
 
 OpenAI has capabilities to turn audio into text or [speech to text](https://platform.openai.com/docs/guides/speech-to-text) feature. The Audio API provides two speech-to-text endpoints, `transcriptions` and `translations`, based on the state-of-the-art open-source large-v2 **Whisper** model. They can be used to:
