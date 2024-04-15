@@ -6,7 +6,7 @@ import OpenAI from "openai";
 import express from 'express';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-//import { saveData } from './griddbservices.js';
+import { saveData, getDatabyID, getAllData, info } from './griddbservices.js';
 
 const app = express();
 const port = 3000;
@@ -16,7 +16,6 @@ const openai = new OpenAI({
 	// eslint-disable-next-line no-undef
 	apiKey: process.env.OPENAI_API_KEY
 });
-
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -62,12 +61,12 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 
 			// Process data to GridDB database
 			// Save the transcription data to GridDB
-			//const saveStatus = await saveData(speechData);
+			const saveStatus = await saveData(speechData);
 
 			res.json({
 				message: 'Successfully uploaded file and saved data',
 				transcription: transcription.text,
-				//saveStatus: saveStatus
+				saveStatus: saveStatus
 			});
 		} catch (error) {
 			console.error('Error during transcription:', error);
@@ -75,6 +74,56 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 		}
 	} else {
 		res.status(400).json({ message: 'No file uploaded' });
+	}
+});
+
+// Route to save data
+app.post('/save-data', async (req, res) => {
+	try {
+		const { filename, text, category } = req.body;
+		const saveStatus = await saveData({ filename, text, category });
+		res.json({ message: 'Data saved successfully', saveStatus });
+	} catch (error) {
+		console.error('Error saving data:', error);
+		res.status(500).json({ message: 'Failed to save data', error: error.message });
+	}
+});
+
+// Route to get data by ID
+app.get('/data/:id', async (req, res) => {
+	try {
+		const id = req.params.id;  // Extracting id from the URL parameter
+		const data = await getDatabyID(id);
+		if (data) {
+			res.json({ message: 'Data retrieved successfully', data });
+		} else {
+			res.status(404).json({ message: 'Data not found' });
+		}
+	} catch (error) {
+		console.error('Error retrieving data:', error);
+		res.status(500).json({ message: 'Failed to retrieve data', error: error.message });
+	}
+});
+
+// Route to get all data
+app.get('/all-data', async (req, res) => {
+	try {
+		const data = await getAllData();
+		res.json({ message: 'Data retrieved successfully', data });
+	} catch (error) {
+		console.error('Error retrieving all data:', error);
+		res.status(500).json({ message: 'Failed to retrieve data', error: error.message });
+	}
+});
+
+// Route to get container information
+app.get('/info', async (req, res) => {
+	try {
+		const containersInfo = await info();
+		res.json({ message: 'Container info retrieved successfully', containersInfo });
+	} catch (error) {
+		console.error('Error retrieving container info:', error);
+		res.status(500).json({ message: 'Failed to retrieve container info', error: error.message });
 	}
 });
 
