@@ -22,20 +22,20 @@ The process flow is a bidirectional interaction between Node.js and both the dat
 
 ## Setup & Installation
 
-Clone the project code from [this repository](https://github.com/junwatu/ai-voice-note),
+Clone the project code from [this GitHub repository](https://github.com/junwatu/ai-voice-note)
 
 ```shell
 git clone git@github.com:junwatu/ai-voice-note.git
 ```
 
-Change directory to `app` dir
+Change directory to `app` directory:
 
 ```shell
 cd ai-voice-note
 cd app
 ```
 
-Install dependencies using `npm`
+Install dependencies using the `npm` command:
 
 ```shell
 npm install
