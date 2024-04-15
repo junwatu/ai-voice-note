@@ -54,7 +54,7 @@ Feel free to change the default `VITE_API_URL`. However, if you change it, you *
 npm run build
 ```
 
-To run the project, use this command:
+Then to run the project, you should use this command:
 
 ```shell
 npm run start
@@ -67,6 +67,10 @@ http://localhost:3000
 ```
 
 ![audio-note-app-screenshot](images/Screenshot%202024-04-12%20at%2010.46.45.png)
+
+This web application needs a microphone access permission. To record audio from the default microphone, you should allow it.
+
+![mic access permission](images/mic-access.png)
 
 ## Record Audio
 
