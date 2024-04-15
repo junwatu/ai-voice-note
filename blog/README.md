@@ -208,9 +208,7 @@ The transcriptions API takes as input the audio file from the storage and will r
 
 ## Save Data to GridDB
 
-[GridDB](https://griddb.net/en/) is an open-source time series database optimized for IoT and Big Data. However, it can also be used for general web applications.
-
-To save the transcribed data from OpenAI, we will use GridDB as the database. In the Node.js server these data will be saved in the database:
+[GridDB](https://griddb.net/en/) is an open-source time series database optimized for IoT and Big Data. However, it can also be used for general web applications. To save the transcribed data from OpenAI, we will use GridDB as the database. In the Node.js server these data will be saved in the database:
 
 ```javascript
 const speechData = {
@@ -222,5 +220,27 @@ const speechData = {
 const saveStatus = await saveData(speechData);
 ```
 
+There are three fields that will be saved to the database. One important note is this project will not save the audio file in the database but it will save the audio file reference (file path).
+
+| Key       | Description                                           | Example Value                     |
+|-----------|-------------------------------------------------------|-----------------------------------|
+| `filename`| The path where the uploaded audio file is stored.     | `/path/to/uploads/audio-12345.webm` |
+| `text`    | The transcribed text obtained from the audio file.    | "Transcribed speech from the audio." |
+| `category`| A label or category assigned to the audio note.       | "voice note"                      |
+
+The `saveData` function will save the audio data into the GridDB database:
+
+```javascript
+export async function saveData({ filename, text, category }) {
+ const id = generateRandomID();
+ const sfilename = String(filename);
+ const speechText = String(text);
+ const scategory = String(category);
+
+ const packetInfo = [parseInt(id), sfilename, speechText, scategory];
+ const saveStatus = await GridDB.insert(packetInfo, collectionDb);
+ return saveStatus;
+}
+```
 
 ## Further Enhancements
