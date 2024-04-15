@@ -133,7 +133,7 @@ export default function Home() {
 
 ![audio recorder component](images/audio-recorder.png)
 
-The `<AudioRecorder>` is an out-of-the-box component that takes the `onRecordingComplete` method as a prop and calls it when you save the recording. This React component will record audio using Web APIs. On recording complete, the audio blob will be processed and then uploaded to Node.js `/upload` server endpoint.
+The `<AudioRecorder>` is an out-of-the-box component that takes the `onRecordingComplete()` method as a prop and calls it when you save the recording. This React component will record audio using Web APIs. On recording complete, the audio blob will be processed and then uploaded to Node.js `/upload` server endpoint.
 
 ## Create Node.js Server
 
@@ -248,7 +248,7 @@ Three fields will be saved to the database. One important note is this project w
 | `text`    | The transcribed text obtained from the audio file.    | "Transcribed speech from the audio." |
 | `category`| A label or category assigned to the audio note.       | "voice note"                      |
 
-The `saveData` function will save the audio data into the GridDB database. In the `griddbservice.js` file you can find the `saveData` code:
+The `saveData()` method will save the audio data into the GridDB database. In the `griddbservice.js` file you can find the `saveData()` code:
 
 ```javascript
 export async function saveData({ filename, text, category }) {
@@ -263,7 +263,7 @@ export async function saveData({ filename, text, category }) {
 }
 ```
 
-The `initContainer` function will initialize the GridDB container with the audio or speech data. You can see this function in the `libs/griddb.cjs` file.
+The `initContainer()` function will initialize the GridDB container with the audio or speech data. You can see this function in the `libs/griddb.cjs` file.
 
 ```javascript
 function initContainer() {
