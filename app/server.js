@@ -6,7 +6,7 @@ import OpenAI from "openai";
 import express from 'express';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { saveData, getDatabyID, getAllData, info } from './griddbservices.js';
+//import { saveData, getDatabyID, getAllData, info } from './griddbservices.js';
 
 const app = express();
 const port = 3000;
@@ -35,6 +35,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 	if (req.file) {
 		// The path to the uploaded audio file
 		const filePath = join(__dirname, 'uploads', req.file.filename);
+		const downloadUrl = `${req.protocol}://${req.get('host')}/download/${req.file.filename}`;
 
 		try {
 			// Perform speech-to-text on the uploaded file
@@ -52,22 +53,18 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 				category: "voice note"
 			}
 
-			/**
-			 * Data fieldss
-			 * filename:
-			 * text:
-			 * category:
-			 */
-
 			// Process data to GridDB database
 			// Save the transcription data to GridDB
-			const saveStatus = await saveData(speechData);
+			//const saveStatus = await saveData(speechData);
 
 			res.json({
-				message: 'Successfully uploaded file and saved data',
 				transcription: transcription.text,
-				saveStatus: saveStatus
+				filename: req.file.filename,
+				category: "voice note",
+				downloadLink: downloadUrl,
+				//saveStatus: saveStatus
 			});
+
 		} catch (error) {
 			console.error('Error during transcription:', error);
 			res.status(500).json({ message: 'Error during transcription', error: error.message });
@@ -126,6 +123,18 @@ app.get('/info', async (req, res) => {
 		res.status(500).json({ message: 'Failed to retrieve container info', error: error.message });
 	}
 });
+
+app.get('/download/:filename', (req, res) => {
+	const filePath = join(__dirname, 'uploads', req.params.filename);
+
+	res.download(filePath, (err) => {
+		if (err) {
+			console.error('Error downloading file:', err);
+			res.status(500).json({ message: 'Error downloading file', error: err.message });
+		}
+	});
+});
+
 
 app.listen(port, () => {
 	console.log(`Server listening at http://localhost:${port}`);

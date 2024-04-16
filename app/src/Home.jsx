@@ -1,18 +1,17 @@
+import { useState } from 'react';
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 
 export default function Home() {
-
-	// Example in a JavaScript or TypeScript file
-    const apiUrl = import.meta.env.VITE_API_URL;
-    
-	console.log(apiUrl);
+	const apiUrl = import.meta.env.VITE_API_URL;
+	const [response, setResponse] = useState(null);
 
 	const recorderControls = useAudioRecorder({
 		noiseSuppression: true,
 		echoCancellation: true,
 	},
-		(err) => console.table(err) // onNotAllowedOrFound
+		(err) => console.table(err)
 	);
+
 	const addAudioElement = (blob) => {
 		const url = URL.createObjectURL(blob);
 		const audio = document.createElement('audio');
@@ -29,6 +28,7 @@ export default function Home() {
 		})
 			.then(response => response.json())
 			.then(data => {
+				setResponse(data);
 				console.log('Success:', data);
 			})
 			.catch((error) => {
@@ -41,13 +41,32 @@ export default function Home() {
 			<div className="hero-content text-center">
 				<div className="max-w-md">
 					<h1 className="text-5xl font-bold">Audio Note</h1>
-					<div className='flex justify-center items-center w-full my-32'>
+					<p className="py-6">Push the button below to start audio recording</p>
+					<div className='flex justify-center items-center w-full my-24'>
 						<AudioRecorder
 							onRecordingComplete={(blob) => addAudioElement(blob)}
 							recorderControls={recorderControls}
 							showVisualizer={true}
 						/>
 					</div>
+					{response && (
+						<div className="overflow-x-auto">
+						<table className="table">
+							<thead>
+								<tr>
+									<th>Filename</th>
+									<th>Transcription</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td className="underline"><a href={response.downloadLink}>{response.filename}</a></td>
+									<td>{response.transcription}</td>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
