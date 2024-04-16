@@ -4,6 +4,7 @@ import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 export default function Home() {
 	const apiUrl = import.meta.env.VITE_API_URL;
 	const [response, setResponse] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const recorderControls = useAudioRecorder({
 		noiseSuppression: true,
@@ -13,6 +14,7 @@ export default function Home() {
 	);
 
 	const addAudioElement = (blob) => {
+		setIsLoading(true);
 		const url = URL.createObjectURL(blob);
 		const audio = document.createElement('audio');
 		audio.src = url;
@@ -30,9 +32,12 @@ export default function Home() {
 			.then(data => {
 				setResponse(data);
 				console.log('Success:', data);
+				setIsLoading(false);  // Stop loading once data is received
+
 			})
 			.catch((error) => {
 				console.error('Error:', error);
+				setIsLoading(false);  // Stop loading once data is received
 			});
 	};
 
@@ -49,22 +54,23 @@ export default function Home() {
 							showVisualizer={true}
 						/>
 					</div>
+					{isLoading && <span className="loading loading-spinner loading-lg"></span>}
 					{response && (
 						<div className="overflow-x-auto">
-						<table className="table">
-							<thead>
-								<tr>
-									<th>Filename</th>
-									<th>Transcription</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td className="underline"><a href={response.downloadLink}>{response.filename}</a></td>
-									<td>{response.transcription}</td>
-								</tr>
-							</tbody>
-						</table>
+							<table className="table">
+								<thead>
+									<tr>
+										<th>Filename</th>
+										<th>Transcription</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td className="underline"><a href={response.downloadLink}>{response.filename}</a></td>
+										<td>{response.transcription}</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					)}
 				</div>
