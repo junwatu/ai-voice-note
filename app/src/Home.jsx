@@ -19,7 +19,7 @@ export default function Home() {
 		const audio = document.createElement('audio');
 		audio.src = url;
 		audio.controls = true;
-		document.body.appendChild(audio);
+		//document.body.appendChild(audio);
 
 		const formData = new FormData();
 		formData.append("file", blob, "audio.webm");
@@ -32,12 +32,12 @@ export default function Home() {
 			.then(data => {
 				setResponse(data);
 				console.log('Success:', data);
-				setIsLoading(false);  // Stop loading once data is received
+				setIsLoading(false);
 
 			})
 			.catch((error) => {
 				console.error('Error:', error);
-				setIsLoading(false);  // Stop loading once data is received
+				setIsLoading(false);
 			});
 	};
 
@@ -60,7 +60,7 @@ export default function Home() {
 							<table className="table">
 								<thead>
 									<tr>
-										<th>Filename</th>
+										<th>Audio File</th>
 										<th>Transcription</th>
 									</tr>
 								</thead>
