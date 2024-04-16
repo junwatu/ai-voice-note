@@ -284,4 +284,17 @@ function initContainer() {
 
 ## Further Enhancements
 
-This web application does not support the selection of multiple devices. To improve the functionality, you can add a feature that allows users to select available microphones.
+This project is currently a prototype and has several opportunities for enhancement to improve functionality and user experience. Here are potential enhancements you can consider:
+
+- **Device Selection Capability**:
+  - **Multiple Device Support**: Implement a feature that allows users to select from available microphones and input devices. This will enable users to choose their preferred audio source, especially useful in environments with multiple audio input options.
+  
+- **Audio Environment Optimization**:
+  - **Noise Suppression**: Integrate advanced noise suppression algorithms that can dynamically reduce or eliminate background noise during recording. This enhancement will significantly improve audio clarity and quality, especially in non-ideal, noisy environments.
+  
+- **User Interface Improvements**:
+  - **Device Selection UI**: Develop a user-friendly interface that lists all available microphones and lets the user select their preferred input device easily. This interface can include device specifications, current status, and a test feature to check audio quality.
+  - **Visual Feedback for Sound Level**: Add visual feedback mechanisms such as a sound level meter or a waveform view to help users understand the audio input levels in real-time. This feature will aid users in adjusting their mic placement or settings before starting the recording.
+
+These enhancements aim to make the web application more robust, versatile, and user-friendly, catering to a wider range of recording situations and user preferences. Integrating these features would significantly increase the utility and appeal of the application.
+
