@@ -6,7 +6,7 @@ import OpenAI from "openai";
 import express from 'express';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-//import { saveData, getDatabyID, getAllData, info } from './griddbservices.js';
+import { saveData, getDatabyID, getAllData, info } from './griddbservices.js';
 
 const app = express();
 const port = 3000;
@@ -55,14 +55,14 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 
 			// Process data to GridDB database
 			// Save the transcription data to GridDB
-			//const saveStatus = await saveData(speechData);
+			const saveStatus = await saveData(speechData);
 
 			res.json({
 				transcription: transcription.text,
 				filename: req.file.filename,
 				category: "voice note",
 				downloadLink: downloadUrl,
-				//saveStatus: saveStatus
+				saveStatus: saveStatus
 			});
 
 		} catch (error) {
