@@ -5,11 +5,14 @@ import multer from 'multer';
 import OpenAI from "openai";
 import express from 'express';
 import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, URL } from 'url';
 import { saveData, getDatabyID, getAllData, info } from './griddbservices.js';
 
 const app = express();
-const port = 3000;
+
+const apiUrl = new URL(process.env.VITE_API_URL);
+const port = apiUrl.port;
+const host = apiUrl.hostname;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const openai = new OpenAI({
@@ -136,6 +139,6 @@ app.get('/download/:filename', (req, res) => {
 });
 
 
-app.listen(port, () => {
-	console.log(`Server listening at http://localhost:${port}`);
+app.listen(port, host, () => {
+	console.log(`Server listening at http://${host}:${port}`);
 });
